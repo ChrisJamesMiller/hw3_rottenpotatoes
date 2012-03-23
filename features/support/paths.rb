@@ -11,27 +11,34 @@ module NavigationHelpers
   # step definition in web_steps.rb
   #
   def path_to(page_name)
+    retval = '/'
     case page_name
 
     when /^the home\s?page$/
-      '/'
-
-    # Add more mappings here.
-    # Here is an example that pulls values out of the Regexp:
-    #
-    #   when /^(.*)'s profile page$/i
-    #     user_profile_path(User.find_by_login($1))
-
+      retval = '/'
+    when /.*RottenPotatoes.*\s?page$/i
+      retval = '/movies'
+    when /.*the edit page for\s"(.*)"/i
+      movies = Movie.find_by_title $1
+      movieid = movies.id.to_s
+      retval = '/movies/' + movieid + '/edit'      
+    when /.*the details page for\s"(.*)"/i
+      movies = Movie.find_by_title $1
+      movieid = movies.id.to_s
+      retval = '/movies/' + movieid      
     else
       begin
         page_name =~ /^the (.*) page$/
+        puts $1
         path_components = $1.split(/\s+/)
+        puts path_components.to_s
         self.send(path_components.push('path').join('_').to_sym)
       rescue NoMethodError, ArgumentError
         raise "Can't find mapping from \"#{page_name}\" to a path.\n" +
           "Now, go and add a mapping in #{__FILE__}"
       end
     end
+    return retval
   end
 end
 
