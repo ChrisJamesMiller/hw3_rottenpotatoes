@@ -26,6 +26,10 @@ module NavigationHelpers
       movies = Movie.find_by_title $1
       movieid = movies.id.to_s
       retval = '/movies/' + movieid      
+    when /.*the Similar Movies page for\s"(.*)"/i
+      movies = Movie.find_by_title $1
+      movieid = movies.id.to_s
+      retval = '/movies/similar/' + movieid      
     else
       begin
         page_name =~ /^the (.*) page$/

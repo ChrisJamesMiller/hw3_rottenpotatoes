@@ -1,0 +1,8 @@
+   movies GET    /movies(.:format)             {:action=>"index", :controller=>"movies"}
+           POST   /movies(.:format)             {:action=>"create", :controller=>"movies"}
+ new_movie GET    /movies/new(.:format)         {:action=>"new", :controller=>"movies"}
+edit_movie GET    /movies/:id/edit(.:format)    {:action=>"edit", :controller=>"movies"}
+     movie GET    /movies/:id(.:format)         {:action=>"show", :controller=>"movies"}
+           PUT    /movies/:id(.:format)         {:action=>"update", :controller=>"movies"}
+           DELETE /movies/:id(.:format)         {:action=>"destroy", :controller=>"movies"}
+                  /movies/similar/:id(.:format) {:controller=>"movies", :action=>"similar"}
